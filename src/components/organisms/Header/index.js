@@ -40,7 +40,7 @@ class Header extends Component {
               <SupervisorAccount className={classes.menuIcon} />
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.container}>
-              {`Chat App`}
+              {'Chat App'}
             </Typography>
             <Typography color="inherit">Olá, Usuário!</Typography>
           </Toolbar>
