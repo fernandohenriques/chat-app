@@ -8,6 +8,7 @@ import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import styles from './styles';
+import AppTitle from '../../atoms/AppTitle';
 import MainMenu from '../../molecules/MainMenu';
 
 class Header extends Component {
@@ -39,9 +40,7 @@ class Header extends Component {
             >
               <SupervisorAccount className={classes.menuIcon} />
             </IconButton>
-            <Typography variant="title" color="inherit" className={classes.container}>
-              {'Chat App'}
-            </Typography>
+            <AppTitle />
             <Typography color="inherit">Olá, Usuário!</Typography>
           </Toolbar>
         </AppBar>

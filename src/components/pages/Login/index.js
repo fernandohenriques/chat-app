@@ -34,7 +34,7 @@ const Login = (props) => {
 
             <SubmitButton fullWidth title="Entrar" />
             <div className={classes.wrapperLink}>
-              <Button component={Link} to="/register" className={classes.link} >
+              <Button component={Link} to="/register">
                 {'Não sou Cadastrado'}
               </Button>
             </div>

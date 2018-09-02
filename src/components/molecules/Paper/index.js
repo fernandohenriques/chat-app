@@ -8,19 +8,22 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import styles from './styles';
 
 const CustomPaper = (props) => {
-  const { classes, children, title, iconComponent } = props;
+  const { classes, children, title, iconComponent, style } = props;
+  const paperStyle = style ? style : classes.paper;
 
   return (
-    <Paper className={classes.paper}>
+    <Paper className={paperStyle}>
       {iconComponent ? <Avatar className={classes.avatar}>{iconComponent}</Avatar> : null}
-      <Typography variant={iconComponent ? 'headline' : 'display1'} align="center">{title}</Typography>
+      <Typography variant={iconComponent ? 'headline' : 'display1'} align="center">
+        {title ? title : ''}
+      </Typography>
       {children}
     </Paper>
   );
 };
 
 CustomPaper.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   iconComponent: PropTypes.element,
   children: PropTypes.element.isRequired,
   classes: PropTypes.object.isRequired,
