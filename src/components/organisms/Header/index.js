@@ -1,10 +1,10 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import Icon from '@material-ui/core/Icon';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import styles from './styles';
@@ -18,14 +18,12 @@ class Header extends Component {
         <AppBar position="static">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <Icon>account-multiple</Icon>
+              <SupervisorAccount className={classes.menuIcon} />
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>
               {`Chat App`}
             </Typography>
-            <div>
-              Olá, Usuário! <AccountCircle />
-            </div>
+            <Typography color="inherit">Olá, Usuário!</Typography>
           </Toolbar>
         </AppBar>
       </div>

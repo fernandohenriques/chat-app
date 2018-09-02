@@ -5,6 +5,9 @@ const styles = () => ({
   flex: {
     flexGrow: 1,
   },
+  menuIcon: {
+    fontSize: '35px',
+  },
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
