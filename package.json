@@ -11,6 +11,8 @@
     "lint-autofix": "./node_modules/.bin/eslint . --fix"
   },
   "dependencies": {
+    "@material-ui/core": "^3.0.1",
+    "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "react-router-dom": "^4.3.1",
