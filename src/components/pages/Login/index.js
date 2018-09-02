@@ -1,15 +1,16 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
+import TemplateMain from '../../templates/Main';
 
 const Login = () => {
   return (
-    <Fragment>
-      <main className={classes.layout}>
-      </main>
-    </Fragment>
+    <TemplateMain>
+      <div>
+       Oi
+      </div>
+    </TemplateMain>
   );
 };
-
 
 export default Login;
