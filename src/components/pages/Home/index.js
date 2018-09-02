@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
-import logo from '../../../assets/images/logo.svg';
-import './App.css';
+import React from 'react';
+import PropTypes from 'prop-types';
+import withStyles from '@material-ui/core/styles/withStyles';
 
-class Home extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+import TemplateMainLogged from '../../templates/MainLogged';
+import styles from './styles';
 
-export default Home;
+const Home = (props) => {
+  const { classes } = props;
+
+  return (
+    <TemplateMainLogged>
+      Teste
+    </TemplateMainLogged>
+  );
+};
+
+Home.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Home);
