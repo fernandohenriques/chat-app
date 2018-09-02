@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FormControl from '@material-ui/core/FormControl';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
+import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import TemplateMain from '../../templates/Main';
 import Paper from '../../molecules/Paper';
+import RegisterForm from '../../molecules/RegisterForm';
 import SubmitButton from '../../atoms/SubmitButton';
 import styles from './styles';
 
@@ -17,14 +17,22 @@ const Register = (props) => {
     <TemplateMain>
       <div className={classes.layout}>
         <Paper title="Cadastre-se">
-
+          <form className={classes.form}>
+            <RegisterForm />
+            <div className={classes.buttons}>
+              <Button component={Link} to="/login" className={classes.button} >
+                {'Voltar'}
+              </Button>
+              <SubmitButton title="Salvar" />
+            </div>
+          </form>
         </Paper>
       </div>
     </TemplateMain>
   );
 };
 
-Login.propTypes = {
+Register.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 

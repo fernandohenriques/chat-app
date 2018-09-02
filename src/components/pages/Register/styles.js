@@ -11,7 +11,15 @@ const styles = theme => ({
   },
   form: {
     width: '100%', // Fix IE11 issue.
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing.unit * 3,
+  },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  button: {
+    marginTop: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit,
   },
 });
 
