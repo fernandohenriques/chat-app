@@ -2,6 +2,14 @@
   "name": "chat-app",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "lint": "./node_modules/.bin/eslint .",
+    "lint-autofix": "./node_modules/.bin/eslint . --fix"
+  },
   "dependencies": {
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
@@ -9,10 +17,9 @@
     "react-scripts": "1.1.5",
     "styled-components": "^3.4.5"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "babel-eslint": "^9.0.0",
+    "eslint": "^5.5.0",
+    "eslint-plugin-react": "^7.11.1"
   }
 }

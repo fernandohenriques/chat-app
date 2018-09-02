@@ -1,0 +1,27 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "plugins": ["react"],
+  "rules": {
+    "indent": ["error", 2],
+    "semi": ["error","always"],
+    "quotes": ["error", "single"],
+    "max-len": ["error", { "code": 150 }],
+    "comma-dangle": ["error", "always-multiline"],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-no-target-blank": [1, {"enforceDynamicLinks":"never"}],
+    "react/prefer-stateless-function": 0,
+    "react/sort-comp": [1, {
+      "order": ["type-annotations", "static-methods", "lifecycle", "everything-else", "render"]
+    }]
+  }
+}
