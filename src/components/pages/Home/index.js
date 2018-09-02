@@ -10,7 +10,9 @@ const Home = (props) => {
 
   return (
     <TemplateMainLogged>
-      Teste
+      <div className={classes.body}>
+        Teste
+      </div>
     </TemplateMainLogged>
   );
 };
