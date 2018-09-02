@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import LockIcon from '@material-ui/icons/LockOutlined';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import TemplateMain from '../../templates/Main';
@@ -15,8 +18,20 @@ const Login = (props) => {
     <TemplateMain>
       <div className={classes.layout}>
         <Paper title="Login" iconComponent={<LockIcon />}>
-          Oi
-          <SubmitButton title="Entrar" />
+          <form className={classes.form}>
+
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="email">Seu e-mail</InputLabel>
+              <Input id="email" name="email" autoComplete="email" autoFocus />
+            </FormControl>
+
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="password">Sua senha</InputLabel>
+              <Input name="password" type="password" id="password" autoComplete="current-password" />
+            </FormControl>
+
+            <SubmitButton fullWidth title="Entrar" />
+          </form>
         </Paper>
       </div>
     </TemplateMain>

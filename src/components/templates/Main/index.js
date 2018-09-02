@@ -13,7 +13,7 @@ const Main = (props) => {
       </main>
     </Fragment>
   );
-}
+};
 
 Main.propTypes = {
   children: PropTypes.element.isRequired,

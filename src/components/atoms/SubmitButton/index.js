@@ -10,8 +10,8 @@ const SubmitButton = (props) => {
 
   return (
     <Button
+      {...props}
       type="submit"
-      fullWidth
       variant="raised"
       color="primary"
       className={classes.submit}
