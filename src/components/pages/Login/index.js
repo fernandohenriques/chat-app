@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 import LockIcon from '@material-ui/icons/LockOutlined';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
@@ -31,6 +33,11 @@ const Login = (props) => {
             </FormControl>
 
             <SubmitButton fullWidth title="Entrar" />
+            <div className={classes.wrapperLink}>
+              <Button component={Link} to="/register" className={classes.link} >
+                {'Não sou Cadastrado'}
+              </Button>
+            </div>
           </form>
         </Paper>
       </div>
