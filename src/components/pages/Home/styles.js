@@ -1,4 +1,4 @@
-const styles = theme => ({
+const styles = () => ({
   layout: {
     width: 'auto',
     display: 'block', // Fix IE11 issue.

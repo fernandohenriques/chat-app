@@ -1,8 +1,5 @@
 const styles = () => ({
-  root: {
-    flexGrow: 1,
-  },
-  flex: {
+  container: {
     flexGrow: 1,
   },
   menuIcon: {
