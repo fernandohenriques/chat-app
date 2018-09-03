@@ -27,7 +27,7 @@ class Header extends Component {
   }
 
   render() {
-    const { classes, firstName } = this.props;
+    const { classes, firstName, contacts } = this.props;
     const { leftMenuOpen } = this.state;
 
     return (
@@ -46,7 +46,7 @@ class Header extends Component {
             <Typography color="inherit">Olá, {firstName}!</Typography>
           </Toolbar>
         </AppBar>
-        <MainMenu open={leftMenuOpen} toggleMenu={() => this.toggleMenu()} />
+        <MainMenu open={leftMenuOpen} items={contacts} toggleMenu={() => this.toggleMenu()} />
       </div>
     );
   }
@@ -54,9 +54,10 @@ class Header extends Component {
 
 Header.propTypes = {
   firstName: PropTypes.string.isRequired,
+  contacts: PropTypes.array.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = store => ({ firstName: store.user.firstName });
+const mapStateToProps = store => ({ firstName: store.user.firstName, contacts: store.contacts });
 
 export default compose(withStyles(styles), connect(mapStateToProps))(Header);
