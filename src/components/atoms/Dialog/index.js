@@ -29,7 +29,7 @@ const AlertDialog = (props) => {
   );
 };
 
-RegisterForm.propTypes = {
+AlertDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   content: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,

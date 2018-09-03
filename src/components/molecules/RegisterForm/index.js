@@ -30,7 +30,6 @@ const RegisterForm = (props) => {
             label="Primeiro Nome"
             fullWidth
             autoComplete="fname"
-            changeInputFirstName
             value={firstName}
             onChange={changeInputFirstName}
             onKeyPress={e => e.charCode === 13 ? register : null}
@@ -71,6 +70,9 @@ const RegisterForm = (props) => {
             type="password"
             autoComplete="current-password"
             fullWidth
+            value={password}
+            onChange={changeInputPassword}
+            onKeyPress={e => e.charCode === 13 ? register : null}
           />
         </Grid>
         <Grid item xs={12}>
@@ -79,6 +81,9 @@ const RegisterForm = (props) => {
             name="avatar"
             label="Avatar"
             fullWidth
+            value={avatar}
+            onChange={changeInputAvatar}
+            onKeyPress={e => e.charCode === 13 ? register : null}
           />
         </Grid>
       </Grid>

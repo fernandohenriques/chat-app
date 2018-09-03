@@ -14,6 +14,7 @@ import TemplateMain from '../../templates/Main';
 import Paper from '../../molecules/Paper';
 import RegisterForm from '../../molecules/RegisterForm';
 import SubmitButton from '../../atoms/SubmitButton';
+import Dialog from '../../atoms/Dialog';
 import styles from './styles';
 
 class Register extends Component {
@@ -34,7 +35,7 @@ class Register extends Component {
   }
 
   async register() {
-    const { firstName, secondName, email, password, avatar } = this.state;
+    const { firstName, secondName, email, password } = this.state;
     const { setUserLogged } = this.props;
 
     if (firstName && secondName && email && password) {
@@ -48,7 +49,7 @@ class Register extends Component {
   }
 
   render() {
-    const { firstName, secondName, email, password, avatar  } = this.state;
+    const { firstName, secondName, email, password, avatar, openDialog  } = this.state;
     const { classes, logged } = this.props;
 
     if (logged)
@@ -60,22 +61,32 @@ class Register extends Component {
           <Paper title="Cadastre-se">
             <form className={classes.form}>
               <RegisterForm
-                firstName
-                secondName
-                email
-                password
-                avatar
-                changeInputFirstName={() => this.changeInput('firstName')}
-                changeInputEmail={() => this.changeInput('email')}
+                firstName={firstName}
+                secondName={secondName}
+                email={email}
+                password={password}
+                avatar={avatar}
+                changeInputFirstName={this.changeInput('firstName')}
+                changeInputSecondName={this.changeInput('secondName')}
+                changeInputEmail={this.changeInput('email')}
+                changeInputPassword={this.changeInput('password')}
+                changeInputAvatar={this.changeInput('avatar')}
+                register={() => this.register()}
               />
               <div className={classes.buttons}>
                 <Button component={Link} to="/login" className={classes.button} >
                   {'Voltar'}
                 </Button>
-                <SubmitButton title="Salvar" />
+                <SubmitButton title="Salvar" onClick={() => this.register()} />
               </div>
             </form>
           </Paper>
+
+          <Dialog
+            open={openDialog}
+            content={'Infelizmente ocorreu um problema ao tentar salvar seu dados, tente novamente mais tarde.'}
+            onClose={() => this.setState({ openDialog: false })}
+          />
         </div>
       </TemplateMain>
     );
@@ -83,6 +94,8 @@ class Register extends Component {
 }
 
 Register.propTypes = {
+  setUserLogged: PropTypes.func.isRequired,
+  logged: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
