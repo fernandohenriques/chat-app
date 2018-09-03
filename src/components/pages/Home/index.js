@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'ramda';
@@ -10,6 +8,7 @@ import { Redirect } from 'react-router-dom';
 
 import TemplateMainLogged from '../../templates/MainLogged';
 import Chat from '../../organisms/Chat';
+import Avatar from '../../atoms/Avatar';
 import styles, { AvatarWrapper } from './styles';
 
 class Home extends Component {
@@ -18,13 +17,6 @@ class Home extends Component {
     this.state = {
       chatHistory: [{user: props.user, message: 'Oi'}, {user: props.user, message: 'tudo bem'}],
     };
-  }
-
-  renderAvatar(src) {
-    const { classes } = this.props;
-    const avatarClass = classes.avatar;
-    const component = src ? <Avatar src={src} className={avatarClass} /> : <AccountCircle className={avatarClass} />;
-    return component;
   }
 
   render() {
@@ -39,7 +31,7 @@ class Home extends Component {
       <TemplateMainLogged>
         <div className={classes.body}>
           <AvatarWrapper>
-            {this.renderAvatar(user.avatar)}
+            <Avatar src={user.avatar} className={classes.avatar} />
             <Typography variant={'title'} align="center">
               {`${user.firstName} ${user.secondName}`}
             </Typography>

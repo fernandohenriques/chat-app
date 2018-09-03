@@ -9,6 +9,10 @@ const styles = theme => ({
       width: 700,
     },
   },
+  avatar: {
+    width: 40,
+    height: 40,
+  },
 });
 
 export default styles;

@@ -4,17 +4,16 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import ChatBubbleOutline from '@material-ui/icons/ChatBubbleOutline';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
 
+import Card from '../../atoms/Card';
+import Avatar from '../../atoms/Avatar';
+import Avatar from '../../atoms/Scrollable';
 import styles from './styles';
 
 const ChatPanel = styled.div`
@@ -48,11 +47,6 @@ const InputPanel = styled.div`
   margin-top: 10px;
   padding-top: 15px;
   border-top: 1px solid;
-`;
-
-const Scrollable = styled.div`
-  height: 100%;
-  overflow: auto;
 `;
 
 class Chat extends Component {
@@ -123,7 +117,6 @@ class Chat extends Component {
     return (
       <div style={{ height: '100%' }}>
        <Card className={classes.card}>
-      <CardContent>
           <Header>
             <Title>
               Chat
@@ -138,7 +131,7 @@ class Chat extends Component {
                     ({ user, message }, i) => [
                       <ListItem key={i}>
                         <ListItemAvatar>
-                          <Avatar src={user.avatar} />
+                          <Avatar src={user.avatar} className={classes.avatar} />
                         </ListItemAvatar>
                         <ListItemText
                           style={{ color: '#fafafa' }}
@@ -168,7 +161,6 @@ class Chat extends Component {
               </Button>
             </InputPanel>
           </ChatPanel>
-          </CardContent>
         </Card>
       </div>
     )
