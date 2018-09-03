@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { compose } from 'ramda';
+import { connect } from 'react-redux';
 
 import styles from './styles';
 import AppTitle from '../../atoms/AppTitle';
@@ -25,7 +27,7 @@ class Header extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, firstName } = this.props;
     const { leftMenuOpen } = this.state;
 
     return (
@@ -41,7 +43,7 @@ class Header extends Component {
               <SupervisorAccount className={classes.menuIcon} />
             </IconButton>
             <AppTitle />
-            <Typography color="inherit">Olá, Usuário!</Typography>
+            <Typography color="inherit">Olá, {firstName}!</Typography>
           </Toolbar>
         </AppBar>
         <MainMenu open={leftMenuOpen} toggleMenu={() => this.toggleMenu()} />
@@ -51,7 +53,10 @@ class Header extends Component {
 }
 
 Header.propTypes = {
+  firstName: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Header);
+const mapStateToProps = store => ({ firstName: store.user.firstName, });
+
+export default compose(withStyles(styles), connect(mapStateToProps))(Header);

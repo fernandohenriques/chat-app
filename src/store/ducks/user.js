@@ -1,4 +1,3 @@
-
 import { createActions, createReducer } from 'reduxsauce';
 import { mergeDeepRight, dissoc } from 'ramda';
 
@@ -13,11 +12,12 @@ const initialState = {
 };
 
 /* Create Actions e ActionsTypes */
-
-const { Types } = createActions({
-  login: ['token'],
+const { Types, Creators } = createActions({
+  setLoginUser: ['token', 'user'],
   updateUser: ['userUpdate'],
 });
+const { setLoginUser, updateUser } = Creators;
+
 
 /* Reducer Handlers */
 const update = (state = initialState, action) => mergeDeepRight(state, action.userUpdate);
@@ -28,14 +28,13 @@ const login = (state = initialState, action) => {
   return mergeDeepRight(state, { ...newUser, id: user._id, token, logged: true });
 };
 
-console.log(Types);
-
 const handlers = {
-  [Types.LOGIN]: login,
+  [Types.SET_LOGIN_USER]: login,
   [Types.UPDATE_USER]: update
 };
 
 /* Create Reducer */
 const userReducer = createReducer(initialState, handlers);
 
+export { setLoginUser, updateUser };
 export default userReducer;
