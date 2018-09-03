@@ -32,7 +32,7 @@ const Login = (props) => {
               <Input name="password" type="password" id="password" autoComplete="current-password" />
             </FormControl>
 
-            <SubmitButton fullWidth title="Entrar" />
+            <SubmitButton fullWidth title="Entrar" onClick={() => console.log('teste')} />
             <div className={classes.wrapperLink}>
               <Button component={Link} to="/register">
                 {'Não sou Cadastrado'}

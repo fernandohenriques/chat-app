@@ -6,15 +6,17 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import styles from './styles';
 
 const SubmitButton = (props) => {
-  const { classes, title } = props;
+  const { classes, title, fullWidth, onClick } = props;
+  const full = fullWidth ? fullWidth : false;
 
   return (
     <Button
-      {...props}
+      fullWidth={full}
       type="submit"
       variant="raised"
       color="primary"
       className={classes.submit}
+      onClick={onClick}
     >
       {title}
     </Button>
@@ -22,7 +24,10 @@ const SubmitButton = (props) => {
 };
 
 SubmitButton.propTypes = {
+  classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
+  fullWidth: PropTypes.bool,
+
 };
 
 export default withStyles(styles)(SubmitButton);
