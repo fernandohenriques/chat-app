@@ -23,9 +23,6 @@ const AvatarWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  a {
-    text-decoration: none;
-  }
   img {
     box-shadow: rgba(255, 255, 255, 0.2) 0 0 10px 2px;
   }

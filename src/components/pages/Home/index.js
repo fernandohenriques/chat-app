@@ -9,9 +9,16 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import TemplateMainLogged from '../../templates/MainLogged';
+import ChatWindow from '../../organisms/ChatWindow';
 import styles, { AvatarWrapper } from './styles';
 
 class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      chatHistory: [{user: props.user, message: 'Oi'}, {user: props.user, message: 'tudo bem'}],
+    };
+  }
 
   renderAvatar(src) {
     const { classes } = this.props;
@@ -21,6 +28,7 @@ class Home extends Component {
   }
 
   render() {
+    const { chatHistory } = this.state;
     const { classes, user } = this.props;
     const { logged } = user;
 
@@ -32,10 +40,19 @@ class Home extends Component {
         <div className={classes.body}>
           <AvatarWrapper>
             {this.renderAvatar(user.avatar)}
-            <Typography variant={'Title'} align="center">
+            <Typography variant={'title'} align="center">
               {`${user.firstName} ${user.secondName}`}
             </Typography>
           </AvatarWrapper>
+
+          <ChatWindow
+            chatHistory={chatHistory}
+            user={user}
+            onLeave={() => console.log('saiu')}
+            onSendMessage={(message, cb) => console.log(message)}
+            registerHandler={() => console.log('registra msg')}
+            unregisterHandler={{ isRegisterInProcess: false, user }}
+          />
         </div>
       </TemplateMainLogged>
     );
