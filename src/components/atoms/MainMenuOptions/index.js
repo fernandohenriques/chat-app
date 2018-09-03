@@ -16,7 +16,7 @@ const MainMenuOptions = (props) => {
   const { classes, removeUser, items } = props;
 
   const renderItem = (item) => (
-    <ListItem button>
+    <ListItem button key={item._id}>
       <ListItemText primary={`${item.firstName} ${item.secondName}`} />
     </ListItem>
   );
@@ -37,7 +37,7 @@ const MainMenuOptions = (props) => {
 };
 
 MainMenuOptions.propTypes = {
-  items: PropTypes.object.isRequired,
+  items: PropTypes.array.isRequired,
   removeUser: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
