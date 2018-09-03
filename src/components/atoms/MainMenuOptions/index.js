@@ -36,6 +36,7 @@ const MainMenuOptions = (props) => {
 };
 
 MainMenuOptions.propTypes = {
+  removeUser: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

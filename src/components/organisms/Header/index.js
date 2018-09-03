@@ -57,6 +57,6 @@ Header.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = store => ({ firstName: store.user.firstName, });
+const mapStateToProps = store => ({ firstName: store.user.firstName });
 
 export default compose(withStyles(styles), connect(mapStateToProps))(Header);

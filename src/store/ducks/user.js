@@ -34,7 +34,7 @@ const logout = (state = initialState) => mergeDeepRight(state, initialState);
 const handlers = {
   [Types.SET_USER_LOGGED]: login,
   [Types.REMOVE_USER]: logout,
-  [Types.UPDATE_USER]: update
+  [Types.UPDATE_USER]: update,
 };
 
 /* Create Reducer */
