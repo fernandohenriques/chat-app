@@ -4,22 +4,19 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import ChatBubbleOutline from '@material-ui/icons/ChatBubbleOutline';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
-const ChatWindow = styled.div`
-  position: relative;
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  height: 100%;
-  width: 420px;
-  box-sizing: border-box;
-`
+import styles from './styles';
+
 const ChatPanel = styled.div`
   position: relative;
   display: inline-flex;
@@ -39,46 +36,26 @@ const Header = styled.div`
   border-bottom: 1px solid;
 `
 
-const Title = styled.p`
-  text-align: center;
+const Title = styled.span`
   font-size: 24px;
-`
-
-const NoDots = styled.div`
-  hr {
-    visibility: hidden;
-  }
-`
-
-const OutputText = styled.div`
-  white-space: normal !important;
-  word-break: break-all !important;
-  overflow: initial !important;
-  width: 100%;
-  height: auto !important;
-  color: #fafafa !important;
-`
+  padding: 10px 0;
+`;
 
 const InputPanel = styled.div`
   display: flex;
   width: 100%;
   align-items: center;
-  padding-top: 20px;
-  border-top: 1px solid #fafafa;
-`
-
-const ChatroomImage = styled.img`
-  position: absolute;
-  top: 0;
-  width: 100%;
-`
+  margin-top: 10px;
+  padding-top: 15px;
+  border-top: 1px solid;
+`;
 
 const Scrollable = styled.div`
   height: 100%;
   overflow: auto;
-`
+`;
 
-export default class Chatroom extends Component {
+class Chat extends Component {
   constructor(props) {
     super(props)
 
@@ -141,9 +118,12 @@ export default class Chatroom extends Component {
   }
 
   render() {
+    const { classes } = this.props;
+
     return (
       <div style={{ height: '100%' }}>
-        <ChatWindow>
+       <Card className={classes.card}>
+      <CardContent>
           <Header>
             <Title>
               Chat
@@ -162,7 +142,7 @@ export default class Chatroom extends Component {
                         </ListItemAvatar>
                         <ListItemText
                           style={{ color: '#fafafa' }}
-                          primary={user.firstName}
+                          primary={`${user.firstName} ${user.secondName}`}
                           secondary={message}
                         />
                       </ListItem>,
@@ -174,11 +154,13 @@ export default class Chatroom extends Component {
             <InputPanel>
               <TextField
                 placeholder="Digite uma mensagem."
+                fullWidth
                 multiline
                 rows={4}
                 onChange={this.onInput}
                 value={this.state.input}
                 onKeyPress={e => (e.key === 'Enter' ? this.onSendMessage() : null)}
+                style={{ marginLeft: 25 }}
               />
               <Button color="primary" variant="contained" size="small"
                 onClick={this.onSendMessage} style={{ marginLeft: 20 }}>
@@ -186,9 +168,11 @@ export default class Chatroom extends Component {
               </Button>
             </InputPanel>
           </ChatPanel>
-
-        </ChatWindow>
+          </CardContent>
+        </Card>
       </div>
     )
   }
 }
+
+export default withStyles(styles)(Chat);

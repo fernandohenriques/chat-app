@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 import TemplateMainLogged from '../../templates/MainLogged';
-import ChatWindow from '../../organisms/ChatWindow';
+import Chat from '../../organisms/Chat';
 import styles, { AvatarWrapper } from './styles';
 
 class Home extends Component {
@@ -45,7 +45,7 @@ class Home extends Component {
             </Typography>
           </AvatarWrapper>
 
-          <ChatWindow
+          <Chat
             chatHistory={chatHistory}
             user={user}
             onLeave={() => console.log('saiu')}

@@ -8,8 +8,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import styles from './styles';
 
 const CustomPaper = (props) => {
-  const { classes, children, title, iconComponent, style } = props;
-  const paperStyle = style ? style : classes.paper;
+  const { classes, children, title, iconComponent, isSmall } = props;
+  const paperStyle = isSmall ?  classes.paperSmall : classes.paper;
 
   return (
     <Paper className={paperStyle}>
@@ -27,7 +27,7 @@ CustomPaper.propTypes = {
   iconComponent: PropTypes.element,
   children: PropTypes.element.isRequired,
   classes: PropTypes.object.isRequired,
-  style: PropTypes.object,
+  isSmall: PropTypes.bool,
 };
 
 export default withStyles(styles)(CustomPaper);

@@ -8,6 +8,13 @@ const styles = theme => ({
     alignItems: 'center',
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
   },
+  paperSmall: {
+    marginTop: theme.spacing.unit * 3,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: `${theme.spacing.unit * 2}px`,
+  },
   avatar: {
     margin: theme.spacing.unit,
     backgroundColor: red['600'],
