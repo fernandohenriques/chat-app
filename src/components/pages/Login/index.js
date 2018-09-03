@@ -13,6 +13,9 @@ import Paper from '../../molecules/Paper';
 import SubmitButton from '../../atoms/SubmitButton';
 import styles from './styles';
 
+import Api from '../../../services/api';
+
+
 const Login = (props) => {
   const { classes } = props;
 
@@ -32,7 +35,7 @@ const Login = (props) => {
               <Input name="password" type="password" id="password" autoComplete="current-password" />
             </FormControl>
 
-            <SubmitButton fullWidth title="Entrar" onClick={() => console.log('teste')} />
+            <SubmitButton fullWidth title="Entrar" onClick={() => getAllUsers()} />
             <div className={classes.wrapperLink}>
               <Button component={Link} to="/register">
                 {'Não sou Cadastrado'}

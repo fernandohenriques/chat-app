@@ -17,7 +17,7 @@ class Api {
     const { axiosWithToken } = this;
     try {
       const response = await axiosWithToken(token).get('/users');
-      return response;
+      return response.data;
     } catch (error) {
       return error;
     }
