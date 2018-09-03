@@ -27,7 +27,7 @@ SubmitButton.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   fullWidth: PropTypes.bool,
-
+  onClick: PropTypes.func,
 };
 
 export default withStyles(styles)(SubmitButton);

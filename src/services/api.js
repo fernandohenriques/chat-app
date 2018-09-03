@@ -7,13 +7,14 @@ class Api {
   constructor() {
     this.axiosWithToken = token => axios.create({
       baseURL: API_URL,
-      headers: { 'Authorization':'Bearer '+ token, 'Content-Type': 'application/json' }
+      headers: { 'Authorization':'Bearer '+ token, 'Content-Type': 'application/json' },
     });
 
     this.headerJSON = { headers: { 'Content-Type': 'application/json' } };
   }
 
   async getAllUsers(token) {
+    const { axiosWithToken } = this;
     try {
       const response = await axiosWithToken(token).get('/users');
       return response;
@@ -23,8 +24,10 @@ class Api {
   }
 
   async login(body) {
+    const { headerJSON } = this;
+
     try {
-      const response = await axios.post(`${API_URL}/login`, body, this.headerJSON);
+      const response = await axios.post(`${API_URL}/login`, body, headerJSON);
       return response;
     } catch (error) {
       return error;

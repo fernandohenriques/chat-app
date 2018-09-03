@@ -27,6 +27,7 @@ CustomPaper.propTypes = {
   iconComponent: PropTypes.element,
   children: PropTypes.element.isRequired,
   classes: PropTypes.object.isRequired,
+  style: PropTypes.object,
 };
 
 export default withStyles(styles)(CustomPaper);
