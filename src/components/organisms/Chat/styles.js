@@ -1,6 +1,9 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const styles = theme => ({
+  container: {
+    height: '100%',
+  },
   card: {
     marginTop: 20,
     minWidth: 355,
@@ -15,6 +18,15 @@ const styles = theme => ({
     width: 40,
     height: 40,
   },
+  inputMessage: {
+    marginLeft: 25,
+  },
+  sendButton: {
+    marginLeft: 20,
+  },
+  sendButtonIcon: {
+    fontSize: 32,
+  }
 });
 
 const ChatPanel = styled.div`
