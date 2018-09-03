@@ -13,17 +13,18 @@ import { removeUser } from '../../../store/ducks/user';
 import styles from './styles';
 
 const MainMenuOptions = (props) => {
-  const { classes, removeUser } = props;
+  const { classes, removeUser, items } = props;
+
+  const renderItem = (item) => (
+    <ListItem button>
+      <ListItemText primary={`${item.firstName} ${item.secondName}`} />
+    </ListItem>
+  );
 
   return (
     <div className={classes.list}>
       <List component="nav">
-        <ListItem button>
-          <ListItemText primary="Chelsea Alfredo" />
-        </ListItem>
-        <ListItem button>
-          <ListItemText primary="Priscila Henriques" />
-        </ListItem>
+        {items.map(item => renderItem(item))}
       </List>
       <Divider />
       <List>
@@ -36,6 +37,7 @@ const MainMenuOptions = (props) => {
 };
 
 MainMenuOptions.propTypes = {
+  items: PropTypes.object.isRequired,
   removeUser: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
 };

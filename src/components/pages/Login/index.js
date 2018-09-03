@@ -14,6 +14,7 @@ import { Redirect } from 'react-router-dom';
 import { withBounce } from 'react-motions';
 
 import { setUserLogged } from '../../../store/ducks/user';
+import { updateContacts } from '../../../store/ducks/contacts';
 import Api from '../../../services/api';
 import TemplateMain from '../../templates/Main';
 import Paper from '../../molecules/Paper';
@@ -35,11 +36,9 @@ class Login extends Component {
   }
 
   async login() {
-    let effect = this.state.effect;
     this.setState({effect:0});
-
     const { email, password } = this.state;
-    const { setUserLogged } = this.props;
+    const { setUserLogged, updateContacts } = this.props;
 
     if (email && password) {
       const body = {
@@ -49,9 +48,11 @@ class Login extends Component {
         },
       };
       const data = await Api.login(body);
-      if (data.token)
+      if (data.token) {
+        const contacts = await Api.getAllUsers(data.token);
+        updateContacts(contacts, data.user.email);
         setUserLogged(data.token, data.user);
-      else
+      } else
         this.setState({effect: 1});
     }
   }
@@ -119,12 +120,13 @@ class Login extends Component {
 
 Login.propTypes = {
   setUserLogged: PropTypes.func.isRequired,
+  updateContacts: PropTypes.func.isRequired,
   logged: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
 
 const mapStateToProps = store => ({ logged: store.user.logged });
-const mapDispatchToProps = dispatch => bindActionCreators({ setUserLogged }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ setUserLogged, updateContacts }, dispatch);
 
 export default compose(withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(Login);

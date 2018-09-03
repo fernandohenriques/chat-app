@@ -31,6 +31,6 @@ Home.propTypes = {
 };
 
 
-const mapStateToProps = store => ({ logged: store.user.logged, });
+const mapStateToProps = store => ({ logged: store.user.logged });
 
 export default compose(withStyles(styles), connect(mapStateToProps))(Home);

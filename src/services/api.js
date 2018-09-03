@@ -13,12 +13,15 @@ class Api {
     this.headerJSON = { headers: { 'Content-Type': 'application/json' } };
   }
 
-  async getAllUsers(token) {
+  async getAllUsers(token, callback = false) {
     const { axiosWithToken } = this;
 
     try {
       const response = await axiosWithToken(token).get('/users');
-      return response.data;
+      if (callback)
+        callback(response.data);
+      else
+        return response.data;
     } catch (error) {
       return error;
     }
