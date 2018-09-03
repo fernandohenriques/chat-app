@@ -12,7 +12,6 @@ const SubmitButton = (props) => {
   return (
     <Button
       fullWidth={full}
-      type="submit"
       variant="raised"
       color="primary"
       className={classes.submit}

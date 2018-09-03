@@ -10,8 +10,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'ramda';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 
-import { setLoginUser } from '../../../store/ducks/user';
+import { setUserLogged } from '../../../store/ducks/user';
 import Api from '../../../services/api';
 import TemplateMain from '../../templates/Main';
 import Paper from '../../molecules/Paper';
@@ -21,15 +22,40 @@ import styles from './styles';
 class Login extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      email: '',
+      password: '',
+    };
   }
 
-  login() {
-    const { setLoginUser } = this.props;
-    //const data = await Api.getAllUsers(login);
+  changeInput(name) {
+    return e => this.setState({[name]: e.target.value });
+  }
+
+  async login() {
+    const { email, password } = this.state;
+    const { setUserLogged } = this.props;
+
+    if (email && password) {
+      const body = {
+        "user": {
+          "email": email,
+          "password": password
+        }
+      };
+      const data = await Api.login(body);
+      console.log(data);
+      if (data.token)
+        setUserLogged(data.token, data.user);
+    }
   }
 
   render() {
-    const { classes } = this.props;
+    const { email, password } = this.state;
+    const { classes, logged } = this.props;
+
+    if (logged)
+      return <Redirect to="/" />;
 
     return (
       <TemplateMain>
@@ -39,12 +65,26 @@ class Login extends Component {
 
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="email">Seu e-mail</InputLabel>
-                <Input id="email" name="email" autoComplete="email" autoFocus />
+                <Input
+                  id="email"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                  value={email}
+                  onChange={this.changeInput('email')}
+                />
               </FormControl>
 
               <FormControl margin="normal" required fullWidth>
                 <InputLabel htmlFor="password">Sua senha</InputLabel>
-                <Input name="password" type="password" id="password" autoComplete="current-password" />
+                <Input
+                  name="password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={this.changeInput('password')}
+                />
               </FormControl>
 
               <SubmitButton fullWidth title="Entrar" onClick={() => this.login()} />
@@ -53,6 +93,7 @@ class Login extends Component {
                   {'Não sou Cadastrado'}
                 </Button>
               </div>
+
             </form>
           </Paper>
         </div>
@@ -62,11 +103,13 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  setLoginUser: PropTypes.func.isRequired,
+  setUserLogged: PropTypes.func.isRequired,
+  logged: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
 
-const mapDispatchToProps = dispatch => bindActionCreators({ setLoginUser }, dispatch);
+const mapStateToProps = store => ({ logged: store.user.logged, });
+const mapDispatchToProps = dispatch => bindActionCreators({ setUserLogged }, dispatch);
 
-export default compose(withStyles(styles), connect(null, mapDispatchToProps))(Login);
+export default compose(withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(Login);

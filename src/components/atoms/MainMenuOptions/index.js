@@ -5,11 +5,15 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { compose } from 'ramda';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+import { removeUser } from '../../../store/ducks/user';
 import styles from './styles';
 
 const MainMenuOptions = (props) => {
-  const { classes } = props;
+  const { classes, removeUser } = props;
 
   return (
     <div className={classes.list}>
@@ -24,7 +28,7 @@ const MainMenuOptions = (props) => {
       <Divider />
       <List>
         <ListItem button>
-          <ListItemText primary="Sair" />
+          <ListItemText primary="Sair" onClick={() => removeUser()} />
         </ListItem>
       </List>
     </div>
@@ -35,4 +39,8 @@ MainMenuOptions.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MainMenuOptions);
+
+const mapStateToProps = store => ({ user: store.user });
+const mapDispatchToProps = dispatch => bindActionCreators({ removeUser }, dispatch);
+
+export default compose(withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(MainMenuOptions);

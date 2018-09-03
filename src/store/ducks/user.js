@@ -13,10 +13,11 @@ const initialState = {
 
 /* Create Actions e ActionsTypes */
 const { Types, Creators } = createActions({
-  setLoginUser: ['token', 'user'],
+  setUserLogged: ['token', 'user'],
   updateUser: ['userUpdate'],
+  removeUser: null,
 });
-const { setLoginUser, updateUser } = Creators;
+const { setUserLogged, removeUser, updateUser } = Creators;
 
 
 /* Reducer Handlers */
@@ -28,13 +29,16 @@ const login = (state = initialState, action) => {
   return mergeDeepRight(state, { ...newUser, id: user._id, token, logged: true });
 };
 
+const logout = (state = initialState) => mergeDeepRight(state, initialState);
+
 const handlers = {
-  [Types.SET_LOGIN_USER]: login,
+  [Types.SET_USER_LOGGED]: login,
+  [Types.REMOVE_USER]: logout,
   [Types.UPDATE_USER]: update
 };
 
 /* Create Reducer */
 const userReducer = createReducer(initialState, handlers);
 
-export { setLoginUser, updateUser };
+export { setUserLogged, removeUser, updateUser };
 export default userReducer;
