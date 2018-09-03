@@ -15,6 +15,7 @@ class Api {
 
   async getAllUsers(token) {
     const { axiosWithToken } = this;
+
     try {
       const response = await axiosWithToken(token).get('/users');
       return response.data;
@@ -28,7 +29,18 @@ class Api {
 
     try {
       const response = await axios.post(`${API_URL}/login`, body, headerJSON);
-      return response;
+      return response.data;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async createUser(body) {
+    const { headerJSON } = this;
+
+    try {
+      const response = await axios.post(`${API_URL}/users`, body, headerJSON);
+      return response.data;
     } catch (error) {
       return error;
     }
