@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 
 import { setUserLogged } from '../../../store/ducks/user';
+import { updateContacts } from '../../../store/ducks/contacts';
 import Api from '../../../services/api';
 import TemplateMain from '../../templates/Main';
 import Paper from '../../molecules/Paper';
@@ -36,14 +37,16 @@ class Register extends Component {
 
   async register() {
     const { firstName, secondName, email, password } = this.state;
-    const { setUserLogged } = this.props;
+    const { setUserLogged, updateContacts } = this.props;
 
     if (firstName && secondName && email && password) {
       const body = this.state;
       const data = await Api.register(body);
-      if (data.token)
+      if (data.token) {
+        const contacts = await Api.getAllUsers(data.token);
+        updateContacts(contacts, data.user.email);
         setUserLogged(data.token, data.user);
-      else
+      } else
         this.setState({openDialog: true});
     }
   }
@@ -95,11 +98,12 @@ class Register extends Component {
 
 Register.propTypes = {
   setUserLogged: PropTypes.func.isRequired,
+  updateContacts: PropTypes.func.isRequired,
   logged: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = store => ({ logged: store.user.logged });
-const mapDispatchToProps = dispatch => bindActionCreators({ setUserLogged }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ setUserLogged, updateContacts }, dispatch);
 
 export default compose(withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(Register);
