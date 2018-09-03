@@ -35,7 +35,7 @@ class Api {
     }
   }
 
-  async createUser(body) {
+  async register(body) {
     const { headerJSON } = this;
 
     try {
