@@ -4,8 +4,11 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'ramda';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 
+import { setStatus } from '../../../store/ducks/contacts';
+import Socket from '../../../services/socket';
 import TemplateMainLogged from '../../templates/MainLogged';
 import Chat from '../../organisms/Chat';
 import Avatar from '../../atoms/Avatar';
@@ -17,6 +20,11 @@ class Home extends Component {
     this.state = {
       chatHistory: [{user: props.user, message: 'Oi'}, {user: props.user, message: 'tudo bem'}],
     };
+  }
+
+  componentDidMount() {
+    const { setStatus } = this.props;
+    Socket.someoneEnter(setStatus);
   }
 
   render() {
@@ -55,5 +63,6 @@ Home.propTypes = {
 
 
 const mapStateToProps = store => ({ user: store.user });
+const mapDispatchToProps = dispatch => bindActionCreators({ setStatus }, dispatch);
 
-export default compose(withStyles(styles), connect(mapStateToProps))(Home);
+export default compose(withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(Home);

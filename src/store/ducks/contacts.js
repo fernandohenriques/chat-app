@@ -18,9 +18,11 @@ const update = (state = initialState, action) => {
 
 const updateStatus = (state = initialState, action) => {
   const user = R.find(R.propEq('_id', action.id))(state);
-  const newState = state.filter(u => u._id != action.id);
-  user[0].online = action.status;
+  const newState = state.filter(u => u._id !== action.id);
+  user.online = action.status;
+  console.log(user);
   newState.push(user);
+  console.log(newState);
   return newState;
 };
 
@@ -32,5 +34,5 @@ const handlers = {
 /* Create Reducer */
 const contactsReducer = createReducer(initialState, handlers);
 
-export { updateContacts };
+export { updateContacts, setStatus };
 export default contactsReducer;

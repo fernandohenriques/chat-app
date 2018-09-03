@@ -16,6 +16,7 @@ import { withBounce } from 'react-motions';
 import { setUserLogged } from '../../../store/ducks/user';
 import { updateContacts } from '../../../store/ducks/contacts';
 import Api from '../../../services/api';
+import Socket from '../../../services/socket';
 import TemplateMain from '../../templates/Main';
 import Paper from '../../molecules/Paper';
 import SubmitButton from '../../atoms/SubmitButton';
@@ -52,6 +53,7 @@ class Login extends Component {
         const contacts = await Api.getAllUsers(data.token);
         updateContacts(contacts, data.user.email);
         setUserLogged(data.token, data.user);
+        Socket.connect(data.user._id);
       } else
         this.setState({effect: 1});
     }
