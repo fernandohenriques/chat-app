@@ -72,6 +72,7 @@ class Login extends Component {
                   autoFocus
                   value={email}
                   onChange={this.changeInput('email')}
+                  onKeyPress={e => e.charCode === 13 ? this.login() : null}
                 />
               </FormControl>
 
@@ -84,6 +85,7 @@ class Login extends Component {
                   autoComplete="current-password"
                   value={password}
                   onChange={this.changeInput('password')}
+                  onKeyPress={e => e.charCode === 13 ? this.login() : null}
                 />
               </FormControl>
 

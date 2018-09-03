@@ -9,10 +9,6 @@ import TemplateMainLogged from '../../templates/MainLogged';
 import styles from './styles';
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { classes, logged } = this.props;
 
@@ -26,7 +22,6 @@ class Home extends Component {
         </div>
       </TemplateMainLogged>
     );
-
   }
 }
 
