@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
 import ChatBubbleOutline from '@material-ui/icons/ChatBubbleOutline';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -13,52 +11,17 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import Card from '../../atoms/Card';
 import Avatar from '../../atoms/Avatar';
-import Avatar from '../../atoms/Scrollable';
-import styles from './styles';
-
-const ChatPanel = styled.div`
-  position: relative;
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  height: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  z-index: 1;
-`
-
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 1;
-  border-bottom: 1px solid;
-`
-
-const Title = styled.span`
-  font-size: 24px;
-  padding: 10px 0;
-`;
-
-const InputPanel = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  margin-top: 10px;
-  padding-top: 15px;
-  border-top: 1px solid;
-`;
+import Scrollable from '../../atoms/Scrollable';
+import styles, { ChatPanel, Header, Title, InputPanel } from './styles';
 
 class Chat extends Component {
   constructor(props) {
     super(props)
-
     const { chatHistory } = props;
-
     this.state = {
       chatHistory,
-      input: ''
-    }
+      inputMessage: '',
+    };
 
     this.onInput = this.onInput.bind(this)
     this.onSendMessage = this.onSendMessage.bind(this)
@@ -108,7 +71,7 @@ class Chat extends Component {
   }
 
   scrollChatToBottom() {
-    this.panel.scrollTo(0, this.panel.scrollHeight)
+    this.panel.scrollTo(0, this.panel.scrollHeight);
   }
 
   render() {

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import Avatar from '@material-ui/core/Avatar';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const renderAvatar = (props) => {
     const { src } = props;

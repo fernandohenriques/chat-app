@@ -6,7 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 const renderCard = (props) => {
     const { children } = props;
     return (
-      <Card>
+      <Card {...props}>
         <CardContent>
           {children}
         </CardContent>
@@ -15,7 +15,7 @@ const renderCard = (props) => {
 };
 
 renderCard.propTypes = {
-  children: PropTypes.element.string,
+  children: PropTypes.element,
 };
 
 export default renderCard;
