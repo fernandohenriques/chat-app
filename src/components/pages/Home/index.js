@@ -39,11 +39,8 @@ class Home extends Component {
 
           <Chat
             chatHistory={chatHistory}
-            user={user}
-            onLeave={() => console.log('saiu')}
             onSendMessage={(message, cb) => console.log(message)}
             registerHandler={() => console.log('registra msg')}
-            unregisterHandler={{ isRegisterInProcess: false, user }}
           />
         </div>
       </TemplateMainLogged>

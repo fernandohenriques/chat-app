@@ -5,6 +5,7 @@ const initialState = [];
 /* Create Actions e ActionsTypes */
 const { Types, Creators } = createActions({
   updateContacts: ['contacts', 'emailLogged'],
+  setStatus: ['id','status'],
 });
 const { updateContacts } = Creators;
 
