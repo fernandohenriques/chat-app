@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 
 import { setStatus } from '../../../store/ducks/contacts';
+import { setHistory } from '../../../store/ducks/chat';
 import Socket from '../../../services/socket';
 import TemplateMainLogged from '../../templates/MainLogged';
 import Chat from '../../organisms/Chat';
@@ -15,17 +16,17 @@ import Avatar from '../../atoms/Avatar';
 import styles, { AvatarWrapper } from './styles';
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      chatHistory: [{user: props.user, message: 'Oi'}, {user: props.user, message: 'tudo bem'}],
-    };
+  componentDidMount() {
+    const { setStatus, setHistory, user, userLastTalk } = this.props;
+    Socket.someoneEnter(setStatus);
+    Socket.someoneOut(setStatus);
+    Socket.receiveMessage(setHistory);
   }
 
-  componentDidMount() {
-    const { setStatus } = this.props;
-    Socket.someoneEnter(setStatus);
-    Socket.someoneOut(setStatus)
+  sendMessage(message) {
+    const { user, userLastTalk, setHistory } = this.props;
+    setHistory(userLastTalk._id, user, message);
+    Socket.sendMessage(userLastTalk._id, user, message);
   }
 
   renderAvatarContact(user, classes) {
@@ -42,8 +43,8 @@ class Home extends Component {
   }
 
   render() {
-    const { chatHistory } = this.state;
-    const { classes, user, userLastTalk } = this.props;
+    const { classes, user, userLastTalk, history } = this.props;
+    const chatHistory = history ? history[userLastTalk._id] : [];
     const { logged } = user;
 
     if (!logged)
@@ -55,8 +56,7 @@ class Home extends Component {
           {this.renderAvatarContact(userLastTalk, classes)}
           <Chat
             chatHistory={chatHistory}
-            onSendMessage={(message, cb) => console.log(message)}
-            registerHandler={() => console.log('registra msg')}
+            onSendMessage={message => this.sendMessage(message)}
           />
         </div>
       </TemplateMainLogged>
@@ -69,8 +69,11 @@ Home.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-
-const mapStateToProps = store => ({ user: store.user, userLastTalk: store.chat.userLastTalk });
-const mapDispatchToProps = dispatch => bindActionCreators({ setStatus }, dispatch);
+const mapStateToProps = store => ({
+  user: store.user,
+  userLastTalk: store.chat.userLastTalk,
+  history: store.chat.history,
+});
+const mapDispatchToProps = dispatch => bindActionCreators({ setStatus, setHistory }, dispatch);
 
 export default compose(withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(Home);

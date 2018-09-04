@@ -1,5 +1,4 @@
 import React from 'react';
-import { pick } from 'ramda';
 import PropTypes from 'prop-types';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -24,12 +23,17 @@ const logout = (userId, removeUser) => {
   Socket.disconnect(userId);
 }
 
-const renderItem = (item, classes, setUserLastTalk) => {
+const setContact = (userId, item, setUserLastTalk, userLastTalk) => {
+  Socket.addToRoom([userId, item._id]);
+  setUserLastTalk(item);
+};
+
+const renderItem = (userId, item, classes, setUserLastTalk, userLastTalk) => {
   const { online } = item;
   const status = online ? classes.online : classes.offline;
 
   return (
-    <ListItem button key={item._id} onClick={() => setUserLastTalk(item)}>
+    <ListItem button key={item._id} onClick={() => setContact(userId, item, setUserLastTalk, userLastTalk)}>
       <ListItemAvatar>
         <Avatar src={item.avatar} className={classes.avatar} />
       </ListItemAvatar>
@@ -40,12 +44,12 @@ const renderItem = (item, classes, setUserLastTalk) => {
 };
 
 const MainMenuOptions = (props) => {
-  const { classes, removeUser, setUserLastTalk, items, userId } = props;
+  const { classes, removeUser, setUserLastTalk, items, userId, userLastTalk } = props;
 
   return (
     <div className={classes.list}>
       <List component="nav">
-        {items.map(item => renderItem(item, classes, setUserLastTalk))}
+        {items.map(item => renderItem(userId, item, classes, setUserLastTalk, userLastTalk))}
       </List>
       <Divider />
       <List>
@@ -63,8 +67,7 @@ MainMenuOptions.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-
-const mapStateToProps = store => ({ userId: store.user.id });
+const mapStateToProps = store => ({ userId: store.user.id, userLastTalk: store.chat.userLastTalk });
 const mapDispatchToProps = dispatch => bindActionCreators({ removeUser, setUserLastTalk }, dispatch);
 
 export default compose(withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(MainMenuOptions);

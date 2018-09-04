@@ -11,6 +11,7 @@ import { Redirect } from 'react-router-dom';
 import { setUserLogged } from '../../../store/ducks/user';
 import { updateContacts } from '../../../store/ducks/contacts';
 import Api from '../../../services/api';
+import Socket from '../../../services/socket';
 import TemplateMain from '../../templates/Main';
 import Paper from '../../molecules/Paper';
 import RegisterForm from '../../molecules/RegisterForm';
@@ -37,7 +38,7 @@ class Register extends Component {
 
   async register() {
     const { firstName, secondName, email, password } = this.state;
-    const { setUserLogged, updateContacts } = this.props;
+    const { setUserLogged, updateContacts, userLastTalk } = this.props;
 
     if (firstName && secondName && email && password) {
       const body = this.state;
@@ -46,6 +47,9 @@ class Register extends Component {
         const contacts = await Api.getAllUsers(data.token);
         updateContacts(contacts, data.user.email);
         setUserLogged(data.token, data.user);
+        Socket.connect(data.user._id);
+        if(userLastTalk._id)
+          Socket.addToRoom([data.user._id, userLastTalk._id]);
       } else
         this.setState({openDialog: true});
     }
@@ -103,7 +107,7 @@ Register.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = store => ({ logged: store.user.logged });
+const mapStateToProps = store => ({ logged: store.user.logged, userLastTalk: store.chat.userLastTalk });
 const mapDispatchToProps = dispatch => bindActionCreators({ setUserLogged, updateContacts }, dispatch);
 
 export default compose(withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(Register);

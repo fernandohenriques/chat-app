@@ -27,11 +27,11 @@ const ChatMessages = (props) => {
     </Fragment>
   );
 
-  return history.map(listMessages);
+  return history ? history.map(listMessages) : null;
 };
 
 ChatMessages.propTypes = {
-  history: PropTypes.array.isRequired,
+  history: PropTypes.array.isRequired || undefined,
 };
 
 export default withStyles(styles)(ChatMessages);

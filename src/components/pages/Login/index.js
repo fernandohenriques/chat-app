@@ -39,7 +39,7 @@ class Login extends Component {
   async login() {
     this.setState({effect:0});
     const { email, password } = this.state;
-    const { setUserLogged, updateContacts } = this.props;
+    const { setUserLogged, updateContacts, userLastTalk } = this.props;
 
     if (email && password) {
       const body = {
@@ -54,6 +54,8 @@ class Login extends Component {
         updateContacts(contacts, data.user.email);
         setUserLogged(data.token, data.user);
         Socket.connect(data.user._id);
+        if(userLastTalk._id)
+          Socket.addToRoom([data.user._id, userLastTalk._id]);
       } else
         this.setState({effect: 1});
     }
@@ -128,7 +130,7 @@ Login.propTypes = {
 };
 
 
-const mapStateToProps = store => ({ logged: store.user.logged });
+const mapStateToProps = store => ({ logged: store.user.logged, userLastTalk: store.chat.userLastTalk });
 const mapDispatchToProps = dispatch => bindActionCreators({ setUserLogged, updateContacts }, dispatch);
 
 export default compose(withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(Login);

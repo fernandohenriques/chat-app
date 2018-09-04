@@ -13,14 +13,17 @@ const { updateContacts, setStatus } = Creators;
 /* Reducer Handlers */
 const update = (state = initialState, action) => {
   const { contacts, emailLogged } = action;
-  return contacts.filter(c => c.email !== emailLogged);
+  const sortByNameCaseInsensitive = R.sortBy(R.compose(R.toLower, R.prop('firstName')));
+  return sortByNameCaseInsensitive(contacts.filter(c => c.email !== emailLogged));
 };
 
 const updateStatus = (state = initialState, action) => {
   const user = R.find(R.propEq('_id', action.id))(state);
   const newState = state.filter(u => u._id !== action.id);
-  user.online = action.status;
-  newState.push(user);
+  if (user) {
+    user.online = action.status;
+    newState.push(user);
+  }
   return newState;
 };
 

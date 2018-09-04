@@ -14,14 +14,8 @@ class Chat extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      chatHistory: props.chatHistory,
       inputMessage: '',
     };
-  }
-
-  componentDidMount() {
-    this.props.registerHandler(this.onMessageReceived);
-    this.scrollChatToBottom();
   }
 
   componentDidUpdate() {
@@ -37,21 +31,8 @@ class Chat extends Component {
     const { onSendMessage } = this.props;
 
     if (!inputMessage) return;
-
-    onSendMessage(inputMessage, (err) => {
-      if (err) console.error(err);
-      this.setState({ inputMessage: '' });
-    });
-  }
-
-  onMessageReceived(entry) {
-    console.log('onMessageReceived:', entry);
-    this.updateChatHistory(entry);
-  }
-
-  updateChatHistory(entry) {
-    const { chatHistory } = this.state;
-    this.setState({ chatHistory: chatHistory.concat(entry) })
+    onSendMessage(inputMessage);
+    this.setState({ inputMessage: '' });
   }
 
   scrollChatToBottom() {
@@ -66,7 +47,7 @@ class Chat extends Component {
           fullWidth
           multiline
           rows={4}
-          onChange={this.changeInput}
+          onChange={e => this.changeInput(e)}
           value={inputMessage}
           onKeyPress={e => e.charCode === 13 ? this.handleSendMessage() : null}
           className={classes.inputMessage}
@@ -85,8 +66,8 @@ class Chat extends Component {
   }
 
   render() {
-    const { chatHistory, inputMessage } = this.state;
-    const { classes } = this.props;
+    const { inputMessage } = this.state;
+    const { classes, chatHistory } = this.props;
 
     return (
       <div className={classes.container}>
