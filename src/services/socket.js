@@ -13,12 +13,15 @@ class Socket {
   }
 
   disconnect(id) {
-    this.io.emit('disconnect', id);
+    this.io.emit('chatDisconnect', id);
   }
 
   someoneEnter(callback) {
     this.io.on('someoneEnter', (id) => callback(id,true));
-    console.log('Alguém entrou no chat');
+  }
+
+  someoneOut(callback) {
+    this.io.on('someoneOut', (id) => callback(id,false));
   }
 }
 

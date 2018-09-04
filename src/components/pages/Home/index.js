@@ -25,11 +25,25 @@ class Home extends Component {
   componentDidMount() {
     const { setStatus } = this.props;
     Socket.someoneEnter(setStatus);
+    Socket.someoneOut(setStatus)
+  }
+
+  renderAvatarContact(user, classes) {
+    if (!user._id) return null;
+
+    return (
+      <AvatarWrapper>
+        <Avatar src={user.avatar} className={classes.avatar} />
+        <Typography variant={'title'} align="center">
+          {`${user.firstName} ${user.secondName}`}
+        </Typography>
+      </AvatarWrapper>
+    );
   }
 
   render() {
     const { chatHistory } = this.state;
-    const { classes, user } = this.props;
+    const { classes, user, userLastTalk } = this.props;
     const { logged } = user;
 
     if (!logged)
@@ -38,13 +52,7 @@ class Home extends Component {
     return (
       <TemplateMainLogged>
         <div className={classes.body}>
-          <AvatarWrapper>
-            <Avatar src={user.avatar} className={classes.avatar} />
-            <Typography variant={'title'} align="center">
-              {`${user.firstName} ${user.secondName}`}
-            </Typography>
-          </AvatarWrapper>
-
+          {this.renderAvatarContact(userLastTalk, classes)}
           <Chat
             chatHistory={chatHistory}
             onSendMessage={(message, cb) => console.log(message)}
@@ -62,7 +70,7 @@ Home.propTypes = {
 };
 
 
-const mapStateToProps = store => ({ user: store.user });
+const mapStateToProps = store => ({ user: store.user, userLastTalk: store.chat.userLastTalk });
 const mapDispatchToProps = dispatch => bindActionCreators({ setStatus }, dispatch);
 
 export default compose(withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(Home);
