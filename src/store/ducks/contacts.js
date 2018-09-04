@@ -22,7 +22,10 @@ const updateStatus = (state = initialState, action) => {
   const newState = state.filter(u => u._id !== action.id);
   if (user) {
     user.online = action.status;
-    newState.push(user);
+    if(action.status)
+      newState.unshift(user);
+    else
+      newState.push(user);
   }
   return newState;
 };

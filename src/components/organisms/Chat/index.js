@@ -40,7 +40,10 @@ class Chat extends Component {
     this.panel.scrollTo(0, this.panel.scrollHeight);
   }
 
-  renderInputPanel(classes, inputMessage) {
+  renderInputPanel() {
+    const { inputMessage } = this.state;
+    const { classes } = this.props;
+
     return (
       <InputPanel>
         <TextField
@@ -67,7 +70,6 @@ class Chat extends Component {
   }
 
   render() {
-    const { inputMessage } = this.state;
     const { classes, chatHistory } = this.props;
 
     return (
@@ -83,7 +85,7 @@ class Chat extends Component {
                   <ChatMessages history={chatHistory} />
                 </List>
               </Scrollable>
-              {this.renderInputPanel(classes, inputMessage)}
+              {this.renderInputPanel()}
             </ChatPanel>
           </Fragment>
         </Card>
