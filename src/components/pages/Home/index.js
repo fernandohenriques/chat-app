@@ -17,7 +17,7 @@ import styles, { AvatarWrapper } from './styles';
 
 class Home extends Component {
   componentDidMount() {
-    const { setStatus, setHistory, user, userLastTalk } = this.props;
+    const { setStatus, setHistory } = this.props;
     Socket.someoneEnter(setStatus);
     Socket.someoneOut(setStatus);
     Socket.receiveMessage(setHistory);
@@ -67,6 +67,10 @@ class Home extends Component {
 Home.propTypes = {
   user: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  setHistory: PropTypes.func.isRequired,
+  setStatus: PropTypes.func.isRequired,
+  userLastTalk: PropTypes.object.isRequired,
+  history: PropTypes.array || undefined,
 };
 
 const mapStateToProps = store => ({

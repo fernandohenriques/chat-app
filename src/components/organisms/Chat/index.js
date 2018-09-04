@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import ChatBubbleOutline from '@material-ui/icons/ChatBubbleOutline';
@@ -12,14 +13,14 @@ import styles, { ChatPanel, Header, Title, InputPanel } from './styles';
 
 class Chat extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       inputMessage: '',
     };
   }
 
   componentDidUpdate() {
-    this.scrollChatToBottom()
+    this.scrollChatToBottom();
   }
 
   changeInput(e) {
@@ -87,8 +88,14 @@ class Chat extends Component {
           </Fragment>
         </Card>
       </div>
-    )
+    );
   }
 }
+
+Chat.propTypes = {
+  onSendMessage: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+  chatHistory: PropTypes.array,
+};
 
 export default withStyles(styles)(Chat);

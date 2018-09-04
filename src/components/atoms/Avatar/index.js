@@ -4,9 +4,9 @@ import Avatar from '@material-ui/core/Avatar';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const renderAvatar = (props) => {
-    const { src, className } = props;
-    const component = src ? <Avatar src={src} className={className} /> : <AccountCircle className={className} />;
-    return component;
+  const { src, className } = props;
+  const component = src ? <Avatar src={src} className={className} /> : <AccountCircle className={className} />;
+  return component;
 };
 
 renderAvatar.propTypes = {

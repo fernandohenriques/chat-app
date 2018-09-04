@@ -21,19 +21,19 @@ import styles from './styles';
 const logout = (userId, removeUser) => {
   removeUser();
   Socket.disconnect(userId);
-}
+};
 
-const setContact = (userId, item, setUserLastTalk, userLastTalk) => {
+const setContact = (userId, item, setUserLastTalk) => {
   Socket.addToRoom([userId, item._id]);
   setUserLastTalk(item);
 };
 
-const renderItem = (userId, item, classes, setUserLastTalk, userLastTalk) => {
+const renderItem = (userId, item, classes, setUserLastTalk) => {
   const { online } = item;
   const status = online ? classes.online : classes.offline;
 
   return (
-    <ListItem button key={item._id} onClick={() => setContact(userId, item, setUserLastTalk, userLastTalk)}>
+    <ListItem button key={item._id} onClick={() => setContact(userId, item, setUserLastTalk)}>
       <ListItemAvatar>
         <Avatar src={item.avatar} className={classes.avatar} />
       </ListItemAvatar>
@@ -44,12 +44,12 @@ const renderItem = (userId, item, classes, setUserLastTalk, userLastTalk) => {
 };
 
 const MainMenuOptions = (props) => {
-  const { classes, removeUser, setUserLastTalk, items, userId, userLastTalk } = props;
+  const { classes, removeUser, setUserLastTalk, items, userId } = props;
 
   return (
     <div className={classes.list}>
       <List component="nav">
-        {items.map(item => renderItem(userId, item, classes, setUserLastTalk, userLastTalk))}
+        {items.map(item => renderItem(userId, item, classes, setUserLastTalk))}
       </List>
       <Divider />
       <List>
@@ -65,9 +65,11 @@ MainMenuOptions.propTypes = {
   items: PropTypes.array.isRequired,
   removeUser: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  setUserLastTalk: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = store => ({ userId: store.user.id, userLastTalk: store.chat.userLastTalk });
+const mapStateToProps = store => ({ userId: store.user.id });
 const mapDispatchToProps = dispatch => bindActionCreators({ removeUser, setUserLastTalk }, dispatch);
 
 export default compose(withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(MainMenuOptions);

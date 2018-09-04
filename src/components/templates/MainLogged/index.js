@@ -21,6 +21,7 @@ const MainLogged = (props) => {
 };
 
 MainLogged.propTypes = {
+  classes: PropTypes.object.isRequired,
   children: PropTypes.element.isRequired,
 };
 

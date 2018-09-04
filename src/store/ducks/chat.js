@@ -26,7 +26,6 @@ const { setUserLastTalk, setHistory } = Creators;
 const updateUserLastTalk = (state = initialState, action) => ({ history: state.history, userLastTalk: action.user });
 
 const updateHistory = (state = initialState, action) => {
-  console.log(action.message);
   const stateHistory = state.history;
   const userDataUtil = ['id', 'firstName', 'secondName', 'email', 'avatar'];
   const newMessage = { user: pick(userDataUtil, action.user), message: action.message };
@@ -34,8 +33,7 @@ const updateHistory = (state = initialState, action) => {
   thisHistory.push(newMessage);
 
   const newHistory = mergeDeepRight(stateHistory, { [action.id]: thisHistory });
-  console.log(newHistory);
-  return { history: newHistory, userLastTalk: state.userLastTalk }
+  return { history: newHistory, userLastTalk: state.userLastTalk };
 };
 
 const handlers = {

@@ -1,7 +1,7 @@
-const styles = theme => ({
+const styles = () => ({
   main: {
     position: 'fixed',
-    background: `url('./assets/images/background.jpg') no-repeat center center fixed`,
+    background: 'url(\'./assets/images/background.jpg\') no-repeat center center fixed',
     backgroundSize: 'cover',
     width: '100%',
     height: '100%',

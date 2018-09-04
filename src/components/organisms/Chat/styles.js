@@ -26,7 +26,7 @@ const styles = theme => ({
   },
   sendButtonIcon: {
     fontSize: 32,
-  }
+  },
 });
 
 const ChatPanel = styled.div`
@@ -38,7 +38,7 @@ const ChatPanel = styled.div`
   width: 100%;
   box-sizing: border-box;
   z-index: 1;
-`
+`;
 
 const Header = styled.div`
   display: flex;
@@ -46,7 +46,7 @@ const Header = styled.div`
   justify-content: space-between;
   z-index: 1;
   border-bottom: 1px solid;
-`
+`;
 
 const Title = styled.span`
   font-size: 24px;

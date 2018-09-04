@@ -31,6 +31,7 @@ const ChatMessages = (props) => {
 };
 
 ChatMessages.propTypes = {
+  classes: PropTypes.object.isRequired,
   history: PropTypes.array.isRequired || undefined,
 };
 
