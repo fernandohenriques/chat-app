@@ -37,7 +37,7 @@ yarn lint
 
 ## Built With
 
-* [ReactJS](https://facebook.github.io/react-native/)
+* [ReactJS](https://reactjs.org/)
 * [React Router](https://reacttraining.com/react-router/web/guides/philosophy)
 * [Material UI](https://material-ui.com/)
 * [Redux](https://redux.js.org/)
