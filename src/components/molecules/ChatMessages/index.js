@@ -32,7 +32,7 @@ const ChatMessages = (props) => {
 
 ChatMessages.propTypes = {
   classes: PropTypes.object.isRequired,
-  history: PropTypes.array.isRequired || undefined,
+  history: PropTypes.array|| undefined,
 };
 
 export default withStyles(styles)(ChatMessages);

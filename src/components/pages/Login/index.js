@@ -51,9 +51,9 @@ class Login extends Component {
       const data = await Api.login(body);
       if (data.token) {
         const contacts = await Api.getAllUsers(data.token);
+        Socket.connect(data.user._id);
         updateContacts(contacts, data.user.email);
         setUserLogged(data.token, data.user);
-        Socket.connect(data.user._id);
       } else
         this.setState({effect: 1});
     }

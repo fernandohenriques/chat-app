@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-const SOCKET_URL = 'http://localhost:4555';
+const SOCKET_URL = 'http://localhost:8000';
 
 class Socket {
   constructor() {

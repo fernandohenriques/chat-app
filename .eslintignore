@@ -1,2 +1,4 @@
 **/*.test.js
 /src/registerServiceWorker.js
+
+/build/
