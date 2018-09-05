@@ -9,10 +9,13 @@ class Socket {
 
   connect(id) {
     this.io.emit('chatConnect', id);
+    this.addToRoom(id);
   }
 
   disconnect(id) {
     this.io.emit('chatDisconnect', id);
+    this.removeFromRoom(id);
+    this.unregisterToReceiveMessage();
   }
 
   someoneEnter(callback) {
@@ -23,13 +26,11 @@ class Socket {
     this.io.on('someoneOut', (id) => callback(id,false));
   }
 
-  addToRoom(ids) {
-    const roomName = ids.sort((a, b) => a > b).toString().replace(',','-');
+  addToRoom(roomName) {
     this.io.emit('addToRoom', roomName);
   }
 
-  removeFromRoom(ids) {
-    const roomName = ids.sort((a, b) => a > b).toString().replace(',','-');
+  removeFromRoom(roomName) {
     this.io.emit('removeFromRoom', roomName);
   }
 
@@ -39,6 +40,10 @@ class Socket {
 
   receiveMessage(callback) {
     this.io.on('chatReceiveMessage', ({ user, message }) => callback(user.id, user, message));
+  }
+
+  unregisterToReceiveMessage() {
+    this.io.off('chatReceiveMessage');
   }
 }
 

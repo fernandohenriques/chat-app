@@ -23,17 +23,12 @@ const logout = (userId, removeUser) => {
   Socket.disconnect(userId);
 };
 
-const setContact = (userId, item, setUserLastTalk) => {
-  Socket.addToRoom([userId, item._id]);
-  setUserLastTalk(item);
-};
-
-const renderItem = (userId, item, classes, setUserLastTalk) => {
+const renderItem = (item, classes, setUserLastTalk) => {
   const { online } = item;
   const status = online ? classes.online : classes.offline;
 
   return (
-    <ListItem button key={item._id} onClick={() => setContact(userId, item, setUserLastTalk)}>
+    <ListItem button key={item._id} onClick={() => setUserLastTalk(item)}>
       <ListItemAvatar>
         <Avatar src={item.avatar} className={classes.avatar} />
       </ListItemAvatar>
@@ -49,7 +44,7 @@ const MainMenuOptions = (props) => {
   return (
     <div className={classes.list}>
       <List component="nav">
-        {items.map(item => renderItem(userId, item, classes, setUserLastTalk))}
+        {items.map(item => renderItem(item, classes, setUserLastTalk))}
       </List>
       <Divider />
       <List>

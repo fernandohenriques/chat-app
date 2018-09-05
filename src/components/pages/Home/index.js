@@ -17,10 +17,12 @@ import styles, { AvatarWrapper } from './styles';
 
 class Home extends Component {
   componentDidMount() {
-    const { setStatus, setHistory } = this.props;
+    const { user, setStatus, setHistory } = this.props;
     Socket.someoneEnter(setStatus);
     Socket.someoneOut(setStatus);
     Socket.receiveMessage(setHistory);
+    window.addEventListener('load', () => Socket.connect(user.id));
+    window.addEventListener('unload', () => Socket.disconnect(user.id));
   }
 
   sendMessage(message) {
