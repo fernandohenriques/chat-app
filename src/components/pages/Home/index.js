@@ -6,9 +6,10 @@ import { compose } from 'ramda';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
+import { withTada } from 'react-motions';
 
 import { setStatus } from '../../../store/ducks/contacts';
-import { setHistory } from '../../../store/ducks/chat';
+import { setHistory, removeNotification } from '../../../store/ducks/chat';
 import Socket from '../../../services/socket';
 import TemplateMainLogged from '../../templates/MainLogged';
 import Chat from '../../organisms/Chat';
@@ -44,10 +45,26 @@ class Home extends Component {
     );
   }
 
-  render() {
-    const { classes, user, userLastTalk, history } = this.props;
+  renderChat() {
+    const { userLastTalk, history, notification, removeNotification } = this.props;
     const chatHistory = history ? history[userLastTalk._id] : [];
+    const notificationText = notification ? `${notification.name} enviou uma mensagem para você...` : '';
+
+    return (
+      <Chat
+        chatHistory={chatHistory}
+        notificationText={notificationText}
+        onSendMessage={message => this.sendMessage(message)}
+        onDeleteNotification={() => removeNotification()}
+      />
+    );
+  }
+
+  render() {
+    const { classes, user, userLastTalk, notification } = this.props;
     const { logged } = user;
+
+    console.log(notification);
 
     if (!logged)
       return <Redirect to="/login" />;
@@ -56,10 +73,7 @@ class Home extends Component {
       <TemplateMainLogged>
         <div className={classes.body}>
           {this.renderAvatarContact(userLastTalk, classes)}
-          <Chat
-            chatHistory={chatHistory}
-            onSendMessage={message => this.sendMessage(message)}
-          />
+          {notification ? withTada(this.renderChat()) : this.renderChat()}
         </div>
       </TemplateMainLogged>
     );
@@ -71,15 +85,18 @@ Home.propTypes = {
   classes: PropTypes.object.isRequired,
   setHistory: PropTypes.func.isRequired,
   setStatus: PropTypes.func.isRequired,
+  removeNotification: PropTypes.func.isRequired,
   userLastTalk: PropTypes.object.isRequired,
-  history: PropTypes.array || undefined,
+  history: PropTypes.object || undefined,
+  notification: PropTypes.object || PropTypes.bool,
 };
 
 const mapStateToProps = store => ({
   user: store.user,
   userLastTalk: store.chat.userLastTalk,
   history: store.chat.history,
+  notification: store.chat.notification,
 });
-const mapDispatchToProps = dispatch => bindActionCreators({ setStatus, setHistory }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ setStatus, setHistory, removeNotification }, dispatch);
 
 export default compose(withStyles(styles), connect(mapStateToProps, mapDispatchToProps))(Home);

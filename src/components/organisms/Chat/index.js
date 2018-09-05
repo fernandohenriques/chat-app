@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import ChatBubbleOutline from '@material-ui/icons/ChatBubbleOutline';
 import List from '@material-ui/core/List';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -17,6 +18,13 @@ class Chat extends Component {
     this.state = {
       inputMessage: '',
     };
+  }
+
+  componentDidMount() {
+    const { notificationText, onDeleteNotification } = this.props;
+
+    if (notificationText !== '')
+      setTimeout(() => onDeleteNotification(), 30000);
   }
 
   componentDidUpdate() {
@@ -70,10 +78,11 @@ class Chat extends Component {
   }
 
   render() {
-    const { classes, chatHistory } = this.props;
+    const { classes, notificationText, chatHistory } = this.props;
 
     return (
       <div className={classes.container}>
+        <Typography variant={'caption'} className={classes.notification}>{notificationText}</Typography>
         <Card className={classes.card}>
           <Fragment>
             <Header>
@@ -96,6 +105,8 @@ class Chat extends Component {
 
 Chat.propTypes = {
   onSendMessage: PropTypes.func.isRequired,
+  onDeleteNotification: PropTypes.func.isRequired,
+  notificationText: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   chatHistory: PropTypes.array,
 };

@@ -5,7 +5,7 @@ const styles = theme => ({
     height: '100%',
   },
   card: {
-    marginTop: 20,
+    marginTop: 2,
     minWidth: 355,
     [theme.breakpoints.only('sm')]: {
       width: 520,
@@ -27,6 +27,9 @@ const styles = theme => ({
   sendButtonIcon: {
     fontSize: 32,
   },
+  notification: {
+    marginTop: 16,
+  }
 });
 
 const ChatPanel = styled.div`

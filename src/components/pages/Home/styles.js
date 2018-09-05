@@ -7,7 +7,7 @@ const styles = () => ({
   },
   body: {
     position: 'relative',
-    marginTop: '20px',
+    marginTop: '6px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
