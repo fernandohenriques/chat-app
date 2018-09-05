@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,7 +10,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import TemplateMain from '../../templates/Main';
 import AppTitle from '../../atoms/AppTitle';
-import Paper from '../../molecules/Paper';
+
 import styles from './styles';
 
 const NotFound = (props) => {
@@ -19,10 +20,10 @@ const NotFound = (props) => {
     <TemplateMain>
       <AppBar position="static">
         <Toolbar>
-          <AppTitle />
+         <AppTitle />
         </Toolbar>
       </AppBar>
-      <Paper style={classes.paper}>
+      <Paper className={classes.paper}>
         <div>
           <p>
             Page not found :(
