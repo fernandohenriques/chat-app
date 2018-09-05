@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
 
-const SOCKET_URL = 'http://localhost:8000';
+const SOCKET_URL = 'https://awesome-chat-api.herokuapp.com';
 
 class Socket {
   constructor() {
