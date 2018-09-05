@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, createRef } from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -18,6 +18,7 @@ class Chat extends Component {
     this.state = {
       inputMessage: '',
     };
+    this.panel = createRef();
   }
 
   componentDidMount() {
@@ -45,7 +46,7 @@ class Chat extends Component {
   }
 
   scrollChatToBottom() {
-    this.panel.scrollTo(0, this.panel.scrollHeight);
+    /*this.panel.scrollTo(0, this.panel.scrollHeight);*/
   }
 
   renderInputPanel() {
@@ -89,7 +90,7 @@ class Chat extends Component {
               <Title>Chat</Title>
             </Header>
             <ChatPanel>
-              <Scrollable innerRef={(panel) => { this.panel = panel; }}>
+              <Scrollable _ref={this.panel}>
                 <List>
                   <ChatMessages history={chatHistory} />
                 </List>

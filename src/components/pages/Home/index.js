@@ -64,8 +64,6 @@ class Home extends Component {
     const { classes, user, userLastTalk, notification } = this.props;
     const { logged } = user;
 
-    console.log(notification);
-
     if (!logged)
       return <Redirect to="/login" />;
 
@@ -88,7 +86,7 @@ Home.propTypes = {
   removeNotification: PropTypes.func.isRequired,
   userLastTalk: PropTypes.object.isRequired,
   history: PropTypes.object || undefined,
-  notification: PropTypes.object || PropTypes.bool,
+  notification: PropTypes.bool || undefined,
 };
 
 const mapStateToProps = store => ({

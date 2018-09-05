@@ -1,6 +1,7 @@
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 
-const Scrollable = styled.div`
+const DivComponent = styled.div`
   overflow: auto;
 
   @media (max-width: 576px) {
@@ -15,5 +16,15 @@ const Scrollable = styled.div`
     height: 210px;
   }
 `;
+
+const ScrollableDiv = ({ _ref, ...props }) => (
+  <Fragment>
+    <DivComponent innerRef={_ref} {...props}>
+      {props.children}
+    </DivComponent>
+  </Fragment>
+);
+
+const Scrollable = styled(ScrollableDiv)``;
 
 export default Scrollable;

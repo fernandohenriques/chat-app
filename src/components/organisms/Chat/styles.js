@@ -29,7 +29,7 @@ const styles = theme => ({
   },
   notification: {
     marginTop: 16,
-  }
+  },
 });
 
 const ChatPanel = styled.div`
