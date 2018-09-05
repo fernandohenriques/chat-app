@@ -26,6 +26,10 @@ class Home extends Component {
     window.addEventListener('unload', () => Socket.disconnect(user.id));
   }
 
+  componentWillMount() {
+    Socket.unregisterToReceiveMessage();
+  }
+
   sendMessage(message) {
     const { user, userLastTalk, setHistory } = this.props;
     setHistory(userLastTalk._id, user, message);
